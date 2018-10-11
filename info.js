@@ -1,3 +1,5 @@
+import {getState, subscribeState} from './state.js';
+
 class Info extends HTMLElement {
     constructor() {
         super();
@@ -24,17 +26,24 @@ class Info extends HTMLElement {
         shadow.appendChild(style);
 
         this.el = document.createElement('div');
-        this.el.innerHTML = `
-        <span>Info</span>
-        `
+        // this.el.innerHTML = `
+        // <span>Info</span>
+        // `
+        this.el.innerHTML = this.innerHTML;
         shadow.appendChild(this.el);
 
-        let show = this.getAttribute('show');
+        let backgroundColor = this.getAttribute('background');
+        this.el.style.backgroundColor = backgroundColor;
+        let show = getState().showInfoBox;
         this.el.className = this.getClassNameFromAttr(show);
+
+        subscribeState((state) => {
+            this.el.className = this.getClassNameFromAttr(state.showInfoBox);
+        });
     }
 
     getClassNameFromAttr(show) {
-        return `${show === 'true' ? 'show' : 'hide'}`
+        return `${show ? 'show' : 'hide'}`
     }
 
     static get observedAttributes() {
