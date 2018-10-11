@@ -1,0 +1,1 @@
+Super minimal website boilerplate

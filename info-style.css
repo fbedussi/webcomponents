@@ -1,0 +1,17 @@
+div {
+    background: teal;
+    color: white;
+    padding: 2rem;
+}
+
+span {
+    background: rebeccapurple;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}

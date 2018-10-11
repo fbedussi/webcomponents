@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Page Title</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+    <h1>Pop-up info widget - web components</h1>
+
+    <form>
+      <div>
+        <label for="cvc">Enter your CVC <popup-info img="https://png.icons8.com/metro/1600/info.png" data-text="Your card validation code (CVC) is an extra security feature — it is the last 3 or 4 numbers on the back of your card."></label>
+        <input type="text" id="cvc">
+      </div>
+    </form>
+    <div>
+        this div is not styled by style inside info-box
+    </div>
+    <button id="toggle">Toggle info</button>
+    <info-box show="false"/>
+    <script src="main.js" type="text/javascript"></script>
+    <script src="pop-up.js" type="text/javascript"></script>
+    <script src="info.js" type="text/javascript"></script>
+</body>
+</html>
