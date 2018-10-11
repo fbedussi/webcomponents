@@ -1,1 +1,1 @@
-Super minimal website boilerplate
+Web components test
