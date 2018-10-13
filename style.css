@@ -3,3 +3,12 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    padding: 1em;
+}
+
+h2 {
+    margin-top: 1.5em;
+    margin-bottom: 0.25em;
+}

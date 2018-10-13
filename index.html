@@ -2,28 +2,36 @@
 
 <html>
 <head>
-    <title>Page Title</title>
+    <title>Web components demo</title>
     <link rel="stylesheet" href="style.css"/>
 </head>
 
 <body>
-    <h1>web components demo</h1>
+    <h1>Web components demo</h1>
 
     <div>
-        this div is not styled by style inside info-box
+        N.B. this div is not styled by style inside components
     </div>
     <div>
+        <h2>Control element via global state</h2>
         <button id="toggle">Toggle info box via global state</button>
         <info-box background="teal">Info box text</info-box>
         <info-box background="purple">Info box second instance, different background color applyed via attribute</info-box>
     </div>
     <div>
+        <h2>Control elements via attributes</h2>
         <button id="toggleAttr">Toggle info box changing attribute</button>
         <info-box-attr background="teal" show="false" text="text from attribute"/>
     </div>
+    <div>
+        <h2>Nested elements</h2>
+        <nested-elements background="yellow" show="true" text="parent component"/>
+    </div>
+
 
     <script src="main.js" type="module"></script>
     <script src="info-box.js" type="module"></script>
     <script src="info-box-attr.js" type="module"></script>
+    <script src="nested-elements.js" type="module"></script>
 </body>
 </html>
