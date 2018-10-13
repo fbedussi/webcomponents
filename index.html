@@ -12,13 +12,18 @@
     <div>
         this div is not styled by style inside info-box
     </div>
-    <button id="toggle">Toggle info</button>
-    <info-box background="teal">Info box text</info-box>
+    <div>
+        <button id="toggle">Toggle info box via global state</button>
+        <info-box background="teal">Info box text</info-box>
+        <info-box background="purple">Info box second instance, different background color applyed via attribute</info-box>
+    </div>
+    <div>
+        <button id="toggleAttr">Toggle info box changing attribute</button>
+        <info-box-attr background="teal" show="false" text="text from attribute"/>
+    </div>
 
-    <info-box background="purple">Info 2</info-box>
-    
-    <script src="state.js" type="module"></script>
     <script src="main.js" type="module"></script>
-    <script src="info.js" type="module"></script>
+    <script src="info-box.js" type="module"></script>
+    <script src="info-box-attr.js" type="module"></script>
 </body>
 </html>
