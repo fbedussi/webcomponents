@@ -3,8 +3,9 @@ class Slider extends HTMLElement {
         //always call super() first (why?)
         super();
 
-        const slideWidth = 400;
-        const sliderWidth = slideWidth * 3;
+        const slidesToShow = Number(this.getAttribute('slides-to-show'));
+        const numberOfSlides = this.querySelectorAll('li').length;
+                
         //attach shadow DOM 
         const shadow = this.attachShadow({ mode: 'open' });
 
@@ -21,7 +22,7 @@ class Slider extends HTMLElement {
             
             .slider {
                 position: relative;
-                width: ${sliderWidth}px;
+                width: 100%;
                 height: 250px;
                 overflow: hidden;
                 margin: 0 auto;
@@ -30,18 +31,30 @@ class Slider extends HTMLElement {
             ul {
                 list-style: none;
                 display: flex;
+                transition: transform 0.3s;
+                width: ${numberOfSlides/slidesToShow * 100}%;
             }
 
             li {
                 float: left;
+                width: ${100/slidesToShow}%;
+            }
+
+            li > * {
+                width: 100%;
             }
 
             .prevBtn,
             .nextBtn {
                 position: absolute;
+                background-color: var(--buttons-background-color, teal);
+                border: none;
+                appearance: none;
+                border-radius: 0;
                 top: 50%;
                 transform: translateY(-50%);
                 z-index: 10;
+                padding: 1em;
             }
 
             .prevBtn {
@@ -71,13 +84,13 @@ class Slider extends HTMLElement {
 
         let position = 0;
         this.nextBtn.addEventListener('click', () => {
-            position = position - slideWidth;
-            this.slideTrack.style.transform = `translateX(-${position}px)`; 
+            position = Math.max(-50, position - 100/numberOfSlides)    ;
+            this.slideTrack.style.transform = `translateX(${position}%)`; 
         });
 
         this.prevBtn.addEventListener('click', () => {
-            position = position - slideWidth;
-            this.slideTrack.style.transform = `translateX(-${position}px)`; 
+            position = Math.min(0, position + 100/numberOfSlides);
+            this.slideTrack.style.transform = `translateX(${position}%)`; 
         });
     }
 }

@@ -12,3 +12,7 @@ h2 {
     margin-top: 1.5em;
     margin-bottom: 0.25em;
 }
+
+my-slider {
+    --buttons-background-color: rebeccapurple;
+}
