@@ -68,17 +68,18 @@ class Slider extends HTMLElement {
         shadow.appendChild(styleNode);
         const wrapper = document.createElement('div');
         wrapper.className = 'slider' 
-        this.prevBtn = document.createElement('button');
-        this.prevBtn.className = 'prevBtn';
-        this.prevBtn.innerHTML = '<';
-        this.nextBtn = document.createElement('button');
-        this.nextBtn.className = 'nextBtn';
-        this.nextBtn.innerHTML = '>';
-        this.slideTrack = this.children[0];
-        
-        wrapper.appendChild(this.prevBtn);
-        wrapper.appendChild(this.slideTrack);
-        wrapper.appendChild(this.nextBtn);
+        const children = [].slice.call(this.children);
+        wrapper.innerHTML = `
+            <button class="prevBtn"><</button>
+                <ul>
+                    ${children.map((e, i) => `<li><slot name="slide${i + 1}"></slot></li>`)}
+                </ul>
+            <button class="nextBtn">></button>
+        `
+        this.prevBtn = wrapper.querySelector('.prevBtn');
+        this.nextBtn = wrapper.querySelector('.nextBtn');
+        this.slideTrack = wrapper.querySelector('ul');
+
         shadow.appendChild(wrapper);
 
 
