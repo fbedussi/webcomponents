@@ -23,7 +23,6 @@ class Slider extends HTMLElement {
             .slider {
                 position: relative;
                 width: 100%;
-                height: 250px;
                 overflow: hidden;
                 margin: 0 auto;
             }
