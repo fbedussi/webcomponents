@@ -72,7 +72,10 @@ class Slider extends HTMLElement {
         wrapper.innerHTML = `
             <button class="prevBtn"><</button>
                 <ul>
-                    ${children.map((e, i) => `<li><slot name="slide${i + 1}"></slot></li>`)}
+                    ${children.map((e) => {
+                        `<li>${e}</li>`
+
+                    })}
                 </ul>
             <button class="nextBtn">></button>
         `
