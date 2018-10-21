@@ -1,9 +1,12 @@
-import {getState, subscribeState} from './state.js';
+import { getState, subscribeState } from './state.js';
 
 class Info extends HTMLElement {
     constructor() {
+        //always call super() first to establish the correct prototype chain and this value before any further code is run.
         super();
 
+        //attach shadow DOM 
+        //shadow dom cannot be attached to every element: https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow
         const shadow = this.attachShadow({ mode: 'open' });
 
         const style = document.createElement('link');
@@ -28,7 +31,25 @@ class Info extends HTMLElement {
         return `${show && show.toLowerCase() === 'true' ? 'show' : 'hide'}`
     }
 
-    //to react to attribute chages we must declare wich attributes we are watching
+    //connect HTML attributes to JS properties
+    //https://alligator.io/web-components/attributes-properties/
+    get show() {
+        return this.getAttribute('show');
+    }
+
+    set show(newValue) {
+        this.setAttribute('show', newValue);
+    }
+
+    get background() {
+        return this.getAttribute('background');
+    }
+
+    set background(newValue) {
+        this.setAttribute('background', newValue);
+    }
+
+    //for performance reasons we must declare wich attributes we are watching
     static get observedAttributes() {
         return ['show'];
     }
@@ -39,4 +60,5 @@ class Info extends HTMLElement {
     }
 }
 
+//custom element's name must include a dash, cannot include spaces and must be lowecase
 window.customElements.define('info-box-attr', Info);

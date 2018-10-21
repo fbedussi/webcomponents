@@ -2,10 +2,11 @@ import {getState, subscribeState} from './state.js';
 
 class Info extends HTMLElement {
     constructor() {
-        //always call super() first (why?)
+        //always call super() first to establish the correct prototype chain and this value before any further code is run.
         super();
 
         //attach shadow DOM 
+        //shadow dom cannot be attached to every element: https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow
         const shadow = this.attachShadow({ mode: 'open' });
 
         //style can be injected from an external stylesheet
@@ -48,7 +49,17 @@ class Info extends HTMLElement {
     getClassNameFromAttr(show) {
         return `${show ? 'show' : 'hide'}`
     }
+
+    //connect HTML attributes to JS properties
+    //https://alligator.io/web-components/attributes-properties/
+    get background() {
+        return this.getAttribute('background');
+    }
+
+    set background(newValue) {
+        this.setAttribute('background', newValue);
+    }
 }
 
-//custom element's name must include a dash (and cannot include spaces)
+//custom element's name must include a dash, cannot include spaces and must be lowecase
 window.customElements.define('info-box', Info);
