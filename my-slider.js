@@ -3,83 +3,80 @@ class Slider extends HTMLElement {
         //always call super() first (why?)
         super();
 
+        const children = [].slice.call(this.children);
         const slidesToShow = Number(this.getAttribute('slides-to-show'));
-        const numberOfSlides = this.querySelectorAll('li').length;
-                
+        const numberOfSlides = children.length;
+        
+        const template = document.getElementById('my-slider');
+
         //attach shadow DOM 
         const shadow = this.attachShadow({ mode: 'open' });
 
-        //or included as a style node
-        const styleNode = document.createElement('style');
-        styleNode.textContent = `
-            :host {
-            }
-            
-            * {
-                padding: 0;
-                margin: 0;
-            }
-            
-            .slider {
-                position: relative;
-                width: 100%;
-                overflow: hidden;
-                margin: 0 auto;
-            }
+        shadow.innerHTML = `
+            <style>
+                :host {
+                    position: relative;
+                    width: 100%;
+                    overflow: hidden;
+                    margin: 0 auto;
+                    display: block;
+                }
+                
+                * {
+                    padding: 0;
+                    margin: 0;
+                }
+                
+                ul {
+                    list-style: none;
+                    display: flex;
+                    transition: transform 0.3s;
+                    width: ${numberOfSlides/slidesToShow * 100}%;
+                }
 
-            ul {
-                list-style: none;
-                display: flex;
-                transition: transform 0.3s;
-                width: ${numberOfSlides/slidesToShow * 100}%;
-            }
+                li {
+                    float: left;
+                    width: ${100/slidesToShow}%;
+                }
 
-            li {
-                float: left;
-                width: ${100/slidesToShow}%;
-            }
+                img {
+                    width: 100%;
+                }
 
-            li > * {
-                width: 100%;
-            }
+                .prevBtn,
+                .nextBtn {
+                    position: absolute;
+                    background-color: var(--buttons-background-color, teal);
+                    border: none;
+                    appearance: none;
+                    border-radius: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    z-index: 10;
+                    padding: 1em;
+                }
 
-            .prevBtn,
-            .nextBtn {
-                position: absolute;
-                background-color: var(--buttons-background-color, teal);
-                border: none;
-                appearance: none;
-                border-radius: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                z-index: 10;
-                padding: 1em;
-            }
+                .prevBtn {
+                    left: 0;
+                }
 
-            .prevBtn {
-                left: 0;
-            }
-
-            .nextBtn {
-                right: 0;
-            }
+                .nextBtn {
+                    right: 0;
+                }
+            </style>
+            <button class="prevBtn"><</button>
+                <ul role="region">${children.map((e) => `<li class="slide">${e.outerHTML}</li>`).join('')}</ul>
+            <button class="nextBtn">></button>
         `;
-        shadow.appendChild(styleNode);
-        const wrapper = document.createElement('div');
-        wrapper.className = 'slider' 
-        this.prevBtn = document.createElement('button');
-        this.prevBtn.className = 'prevBtn';
-        this.prevBtn.innerHTML = '<';
-        this.nextBtn = document.createElement('button');
-        this.nextBtn.className = 'nextBtn';
-        this.nextBtn.innerHTML = '>';
-        this.slideTrack = this.children[0];
-        
-        wrapper.appendChild(this.prevBtn);
-        wrapper.appendChild(this.slideTrack);
-        wrapper.appendChild(this.nextBtn);
-        shadow.appendChild(wrapper);
 
+        if (template) {
+            const templateContent = template.content;
+            shadow.appendChild(templateContent.cloneNode(true));
+        }
+
+        this.prevBtn = shadow.querySelector('.prevBtn');
+        this.nextBtn = shadow.querySelector('.nextBtn');
+        this.slideTrack = shadow.querySelector('ul');
 
         let position = 0;
         this.nextBtn.addEventListener('click', () => {

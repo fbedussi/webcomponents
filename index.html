@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
     <title>Web components demo</title>
     <link rel="stylesheet" href="style.css"/>
@@ -29,15 +29,34 @@
     </div>
 
     <h2>Slider</h2>
+    <p>Slides are styled from the outside thanks to a template hosting custom style</p>
+    <template id="my-slider">
+        <style>
+            .slide {
+                position: relative;
+            }
+
+            p {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                position: absolute;
+                padding: 0.5rem;
+                display: inline-block;
+                background-color: lightsalmon;
+            }
+        </style>
+      </template>
     <my-slider slides-to-show="3" class="slider">
-        <ul>
-            <li><img src="https://loremflickr.com/400/250" alt="kitten"/></li>
-            <li><img src="https://loremflickr.com/400/250/dog" alt="dog"/></li>
-            <li><img src="https://loremflickr.com/400/250/fish" alt="fish"/></li>
-            <li><img src="https://loremflickr.com/400/250/tree" alt="tree"/></li>
-            <li><img src="https://loremflickr.com/400/250/apple" alt="apple"/></li>
-            <li><img src="https://loremflickr.com/400/250/orange" alt="orange"/></li>
-        </ul>
+        <div>
+            <img src="https://loremflickr.com/400/250" alt="kitten"/>
+            <p>hello!</p>
+        </div>
+        <img src="https://loremflickr.com/400/250/dog" alt="dog"/>
+        <img src="https://loremflickr.com/400/250/fish" alt="fish"/>
+        <img src="https://loremflickr.com/400/250/tree" alt="tree"/>
+        <img src="https://loremflickr.com/400/250/apple" alt="apple"/>
+        <img src="https://loremflickr.com/400/250/orange" alt="orange"/>
     </my-slider>
 
 
