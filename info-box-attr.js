@@ -1,4 +1,4 @@
-import { getState, subscribeState } from './state.js';
+import { wireUpWc } from './wc-utils.js';
 
 class Info extends HTMLElement {
     constructor() {
@@ -31,34 +31,10 @@ class Info extends HTMLElement {
         return `${show && show.toLowerCase() === 'true' ? 'show' : 'hide'}`
     }
 
-    //connect HTML attributes to JS properties
-    //https://alligator.io/web-components/attributes-properties/
-    get show() {
-        return this.getAttribute('show');
-    }
-
-    set show(newValue) {
-        this.setAttribute('show', newValue);
-    }
-
-    get background() {
-        return this.getAttribute('background');
-    }
-
-    set background(newValue) {
-        this.setAttribute('background', newValue);
-    }
-
-    //for performance reasons we must declare wich attributes we are watching
-    static get observedAttributes() {
-        return ['show'];
-    }
-
     //react to attribute chages
     attributeChangedCallback(name, oldValue, newValue) {
         this.el.className = this.getClassNameFromAttr(newValue);
     }
 }
 
-//custom element's name must include a dash, cannot include spaces and must be lowecase
-window.customElements.define('info-box-attr', Info);
+wireUpWc(Info, 'info-box-attr', ['show', 'background']);
